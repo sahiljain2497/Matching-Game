@@ -2,7 +2,8 @@
  * Create a list that holds all of your cards
  */
 var arr =  ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb','fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb']
-
+var selected;
+var count=0;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -26,7 +27,7 @@ function shuffle(array) {
 }
 
 var newarr=shuffle(arr);
-//console.log(newarr);
+console.log(newarr);
 var cards=document.getElementsByClassName('card');
 //console.log(cards[0].childNodes[1]);
 for(var i =0;i<cards.length;i++){
@@ -42,9 +43,18 @@ for(var i =0;i<cards.length;i++){
 //console.log(cards[0].childNodes[1]);
 function opencard(){
     //console.log('adad');
-    this.style.transition="all 1s";
-    this.classList.add("open");
-    this.classList.add("show");
+        this.style.transition="all 1s";
+        this.classList.add("open");
+        this.classList.add("show");
+        selected=this.childNodes[1].className;
+        console.log(selected);
+        count=count+1;
+    if(count==2){
+        count=0;
+          if (this.childNodes[1].className == selected){
+            this.classList.add("match");
+        }
+    }
 }
 /*
  * set up the event listener for a card. If a card is clicked:
