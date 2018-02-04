@@ -2,8 +2,14 @@
  * Create a list that holds all of your cards
  */
 var arr =  ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb','fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb']
-var selected;
+var previous;
+var previouscard;
+var current;
+var currentcard;
 var count=0;
+var moves=0;
+var stars=document.getElementsByClassName('stars');
+console.log(stars);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -43,18 +49,71 @@ for(var i =0;i<cards.length;i++){
 //console.log(cards[0].childNodes[1]);
 function opencard(){
     //console.log('adad');
-        this.style.transition="all 1s";
+
+  if(count==1){
+    moves=moves+1;
+    document.getElementsByClassName('moves')[0].innerHTML=moves;
+    for(var i=0;i<cards.length;i++){
+    cards[i].removeEventListener("click",opencard);  
+    }
+    this.style.transition="all 1s";
         this.classList.add("open");
         this.classList.add("show");
-        selected=this.childNodes[1].className;
-        console.log(selected);
-        count=count+1;
-    if(count==2){
+        current=this.childNodes[1].className;
+        currentcard=this;
+        //console.log(currentcard);
+        //console.log(current);
         count=0;
-          if (this.childNodes[1].className == selected){
-            this.classList.add("match");
+        if (current == previous){
+            previouscard.classList.add("match");
+            currentcard.classList.add("match");
+            previouscard=null;
+            previous=null;
+            currentcard=null;
+            current=null;
+            for(var i=0;i<cards.length;i++){
+               cards[i].addEventListener("click",opencard);  
+             }
         }
-    }
+        else{
+          setTimeout(function() {
+            previouscard.style.background="#FF2D00";
+            currentcard.style.background="#FF2D00";
+            setTimeout(function() {
+              previouscard.classList.remove("open");
+              previouscard.classList.remove("show");
+              previouscard.style.background=null;
+              currentcard.classList.remove("open");
+              currentcard.classList.remove("show");
+              currentcard.style.background=null;
+              previouscard=null;
+              previous=null;
+              currentcard=null;
+              current=null;
+              for(var i=0;i<cards.length;i++){
+                  cards[i].addEventListener("click",opencard);  
+              }
+             }, 1000);
+          }, 1000);
+        }
+    console.log(moves);
+    return; 
+  }
+  
+  if(count==0){
+    moves=moves+1;
+    document.getElementsByClassName('moves')[0].innerHTML=moves;
+    this.style.transition="all 1s";
+        this.classList.add("open");
+        this.classList.add("show");
+        previous=this.childNodes[1].className;
+        previouscard=this;
+        //console.log(previouscard);
+        //console.log(previous);
+        count=count+1;
+        //console.log(count);
+  }    
+  
 }
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -66,3 +125,4 @@ function opencard(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
