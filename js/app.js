@@ -11,6 +11,9 @@ var over=0;
 var stars=document.getElementsByClassName('fa-star');
 var cards=document.getElementsByClassName('card');
 var reset=document.getElementsByClassName('restart');
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName("close")[0];
+var result=document.getElementsByClassName('resultmoves')[0];
 reset[0].addEventListener("click",newgame);
 newgame();
 
@@ -92,6 +95,8 @@ function opencard(){
             }
         }
         if(over==0){
+            modal.style.display = "block";
+            result.innerHTML="You Made "+moves+" to finish the game";
             console.log('done');
         }
         return; 
@@ -119,6 +124,7 @@ function opencard(){
 
 function newgame(){
     var newarr=shuffle(arr);
+    console.log(newarr);
     for(var i =0;i<cards.length;i++){
         var e=document.createElement('i');
         e.classList.add('fa');
@@ -127,7 +133,7 @@ function newgame(){
         cards[i].addEventListener('click',opencard);
         cards[i].classList.remove("show");
         cards[i].classList.remove("open");
-        cards[i].classList.remove(",match");
+        cards[i].classList.remove("match");
     }
     document.getElementsByClassName('moves')[0].innerHTML=0;
     var ee=document.createElement('i');
@@ -145,3 +151,14 @@ function newgame(){
     stars[0].appendChild(list2);
     stars[0].appendChild(list3);
 }
+    
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+} 
