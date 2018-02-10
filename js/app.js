@@ -22,6 +22,7 @@ var time = {
 }
 var min = document.getElementById('min');
 var sec = document.getElementById('sec');
+var isStarted = false;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -104,6 +105,7 @@ function opencard(){
             modal.style.display = "block";
             result.innerHTML="You Made "+moves+" to finish the game";
             console.log('done');
+            reset[0].click();
         }
         return; 
     }
@@ -157,23 +159,32 @@ function newgame(){
     stars[0].appendChild(list1);
     stars[0].appendChild(list2);
     stars[0].appendChild(list3);
-    var timer = setInterval(function(){
-        if(time.secs>59){
-            time.mins++;
-            time.secs = 00;
-            min.innerHTML = time.mins;
+    if(!(isStarted)){
+        isStarted = true;
+        var timer = setInterval(function(){
+            if(time.secs>59){
+                time.mins++;
+                time.secs = 00;
+                min.innerHTML = time.mins;
+                sec.innerHTML = time.secs;
+            }
+            time.secs++;
+            if(time.secs < 10){
+                time.secs = '0' + time.secs;
+            }
             sec.innerHTML = time.secs;
-        }
-        time.secs++;
-        if(time.secs < 10){
-            time.secs = '0' + time.secs;
-        }
-        sec.innerHTML = time.secs;
-        restart.addEventListener('click',function()
-        {
-            
-        })
-    },1000);
+        },1000);
+
+         reset[0].addEventListener('click',function()
+            {
+                clearInterval(timer);
+                isStarted = false;
+                time.mins = 0;
+                time.secs = '00';
+                min.innerHTML = time.mins;
+                sec.innerHTML = time.secs;
+            })
+    }
 }
     
 // When the user clicks on <span> (x), close the modal
