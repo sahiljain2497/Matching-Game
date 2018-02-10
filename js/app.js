@@ -22,6 +22,7 @@ var time = {
 }
 var min = document.getElementById('min');
 var sec = document.getElementById('sec');
+var glass = document.getElementsByClassName('glass')[0];
 var isStarted = false;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -178,6 +179,9 @@ function newgame(){
          reset[0].addEventListener('click',function()
             {
                 clearInterval(timer);
+                reset[0].style.display = 'none';
+                startbtn.style.display = 'block';
+                glass.classList.remove('timer-glass');
                 isStarted = false;
                 time.mins = 0;
                 time.secs = '00';
@@ -199,5 +203,8 @@ window.onclick = function(event) {
 } 
 
 startbtn.addEventListener('click',function(){
+    startbtn.style.display = 'none';
+    reset[0].style.display = 'block';
+    glass.classList.add('timer-glass');
     newgame();
 });
