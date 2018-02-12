@@ -24,6 +24,7 @@ var min = document.getElementById('min');
 var sec = document.getElementById('sec');
 var glass = document.getElementsByClassName('glass')[0];
 var isStarted = false;
+var score = document.getElementsByClassName('score')[0];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -103,6 +104,7 @@ function opencard() {
             }
         }
         if (over == 0) {
+            checkHi(moves)
             modal.style.display = "block";
             result.innerHTML = "You Made " + moves + " to finish the game";
             console.log('done');
@@ -228,3 +230,32 @@ document.addEventListener('keydown', (event) => {
         }
     }
 }, false);
+
+function checkHi(score)
+{
+  var oldHi = localStorage.getItem("score");
+
+  if(oldHi === null){
+    localStorage.setItem("score",score);
+  }
+  else{
+    if(score<oldHi){
+      localStorage.setItem("score",score);
+    }
+  }
+  setScore()
+}
+
+function setScore(){
+  if( typeof(Storage) !== 'undefined'){
+      var Hi = localStorage.getItem("score");
+      if(Hi === null){
+        score.innerHTML = '0';
+      }
+      else{
+        score.innerHTML = Hi;
+      }
+  }
+}
+
+setScore()
