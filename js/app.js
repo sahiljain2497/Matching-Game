@@ -217,12 +217,8 @@ document.addEventListener('keydown', (event) => {
     }
 
     if (event.ctrlKey) {
-        // Even though event.key is not 'Control' (i.e. 'a' is pressed),
-        // event.ctrlKey may be true if Ctrl key is pressed at the time.
         if (startbtn.style.display == 'none') {
-            if (keyName === 'r') {
-                alert(`Combination of ctrlKey + ${keyName}`);
-            }
+            return;
         }
     } else {
         if (startbtn.style.display == 'none') {
