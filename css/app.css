@@ -135,7 +135,12 @@ h1 {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-
+.start{
+    background-color : #02ccba;
+    border-radius:8px;
+    width:50px;
+    height:30px;
+}
 /* The Close Button */
 .close {
     color: #aaa;
